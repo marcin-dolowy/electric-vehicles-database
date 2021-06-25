@@ -1,11 +1,41 @@
 #include "Car.h"
 
-Car::Car(const std::string &brand, const std::string &model, int price, int range, const std::string &color,
-         const std::string &vim, bool damage) : Vehicle(brand, price, range) {
-    this->model = model;
-    this->color = color;
-    this->vim = vim;
-    this->damage = damage;
+std::string Car::get_model() const {
+    return this->model;
+}
+
+std::string Car::get_color() const {
+    return this->color;
+}
+
+std::string Car::get_vim() const {
+    return this->vim;
+}
+
+bool Car::get_damage() const {
+    return this->damage;
+}
+
+void Car::set_model(const std::string &model_) {
+    if(model_.length() < 0 || model.length() > 20) {
+        throw std::runtime_error("WRONG NAME OF MODEL\n");
+    }
+    this->model=model_;
+}
+
+void Car::set_color(const std::string &color_) {
+    if(color_.length() < 0 || color_.length() > 20) {
+        throw std::runtime_error("WRONG NAME OF COLOR\n");
+    }
+    this->color = color_;
+}
+
+void Car::set_vim(const std::string &vim_) {
+    if(vim_.length() != 17)
+    {
+        throw std::runtime_error("VIM NUMBER IS INCORRECT\n");
+    }
+    this->vim = vim_;
 }
 
 void Car::info() const {
@@ -13,15 +43,21 @@ void Car::info() const {
     << " | COLOR: " << color << " | VIM: " << vim << " | DAMAGE: " << std::boolalpha << damage << '\n';
 }
 
-void Car::show_cars_data_base(const std::vector<Car>& vec) {
-    for(const auto & i : vec) {
-        i.info();
-    }
+std::ostream &operator<<(std::ostream &out, const Car& car) {
+    return out << "BRAND: " << car.brand << " | MODEL: " << car.model << " | PRICE: " << car.price<<" | RANGE: "
+               <<car.range << " | COLOR: "<< car.color << " | VIM: " << car.vim << " | DAMAGE: " << std::boolalpha << car.damage << '\n';
+}
+//TODO ADD BODY FUNCTION
+std::istream &operator>>(std::istream &in, Car &car) {
+    std::cout << "TYPE BRAND: ";
+    std::getline(in, car.brand);
+    std::cout << "TYPE BRAND: ";
 }
 
-std::ostream &operator<<(std::ostream &out, const Car& car) {
-    out << car.brand << " " << car.model << " " << car.price << " " << car.range << " " << car.color << " " << car.vim << " " << car.damage;
-    return out;
+void Car::show_cars_data_base(const std::vector<Car>& vec) {
+    for(const auto & i : vec) {
+        std::cout << i;
+    }
 }
 
 std::vector<Car> Car::all_damage_cars(const std::vector<Car>& vec) {
@@ -54,4 +90,5 @@ void Car::deleted_by_vim(std::vector<Car>& vec) {
         }
     }
 }
+
 

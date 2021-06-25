@@ -1,19 +1,19 @@
 #include "Vehicle.h"
 
 std::string Vehicle::get_brand() const {
-    return brand;
+    return this->brand;
 }
 
 int Vehicle::get_price() const {
-    return price;
+    return this->price;
 }
 
 int Vehicle::get_range() const {
-    return range;
+    return this->range;
 }
 
 void Vehicle::set_brand(const std::string &brand_) {
-    if(brand_.length() < 0 && brand_.length() > 20) {
+    if(brand_.length() < 0 || brand_.length() > 20) {
         throw std::runtime_error("WRONG NAME OF BRAND\n");
     }
     this->brand = brand_;

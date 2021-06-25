@@ -1,3 +1,5 @@
+#pragma once
+
 #include "libs.h"
 
 class Vehicle {
@@ -6,14 +8,16 @@ protected:
     int price;
     int range;
 public:
-    Vehicle(std::string  brand, int price, int range) : brand(std::move(brand)), price(price), range(range) {}
+    Vehicle(std::string  brand, const int price, const int range) : brand(std::move(brand)), price(price), range(range) {}
     Vehicle() : brand(" "), price(0), range(0) {};
     ~Vehicle() = default;
 
+    //getters
     std::string get_brand() const;
     int get_price() const;
     int get_range() const;
 
+    //setters
     void set_brand(const std::string& brand_);
     void set_price(int price_);
     void set_range(int range_);
