@@ -31,8 +31,7 @@ void Car::set_color(const std::string &color_) {
 }
 
 void Car::set_vim(const std::string &vim_) {
-    if(vim_.length() != 17)
-    {
+    if(vim_.length() != 17) {
         throw std::runtime_error("VIM NUMBER IS INCORRECT\n");
     }
     this->vim = vim_;
@@ -44,14 +43,27 @@ void Car::info() const {
 }
 
 std::ostream &operator<<(std::ostream &out, const Car& car) {
-    return out << "BRAND: " << car.brand << " | MODEL: " << car.model << " | PRICE: " << car.price<<" | RANGE: "
-               <<car.range << " | COLOR: "<< car.color << " | VIM: " << car.vim << " | DAMAGE: " << std::boolalpha << car.damage << '\n';
+    return out << "BRAND: " << car.brand << " | MODEL: " << car.model << " | PRICE: " << car.price << " | RANGE: "
+    << car.range << " | COLOR: "<< car.color << " | VIM: " << car.vim << " | DAMAGE: " << std::boolalpha << car.damage << '\n';
 }
-//TODO ADD BODY FUNCTION
+
 std::istream &operator>>(std::istream &in, Car &car) {
     std::cout << "TYPE BRAND: ";
-    std::getline(in, car.brand);
-    std::cout << "TYPE BRAND: ";
+    in >> car.brand; in.get();
+    std::cout << "TYPE MODEL: ";
+    in >> car.model; in.get();
+    std::cout << "TYPE PRICE: ";
+    in >> car.price; in.get();
+    std::cout << "TYPE RANGE: ";
+    in >> car.range; in.get();
+    std::cout << "TYPE COLOR: ";
+    in >> car.color; in.get();
+    std::cout << "TYPE VIM: ";
+    in >> car.vim; in.get();
+    std::cout << "TYPE DAMAGE (0/1): ";
+    in >> car.damage; in.get();
+    return in;
+
 }
 
 void Car::show_cars_data_base(const std::vector<Car>& vec) {
@@ -60,7 +72,7 @@ void Car::show_cars_data_base(const std::vector<Car>& vec) {
     }
 }
 
-std::vector<Car> Car::all_damage_cars(const std::vector<Car>& vec) {
+std::vector<Car> Car::cars_with_damage(const std::vector<Car>& vec) {
     std::vector<Car> result;
     for(auto & i : vec) {
         if(i.damage) {
@@ -70,7 +82,7 @@ std::vector<Car> Car::all_damage_cars(const std::vector<Car>& vec) {
     return result;
 }
 
-std::vector<Car> Car::car_without_damage(const std::vector<Car>& vec) {
+std::vector<Car> Car::cars_without_damage(const std::vector<Car>& vec) {
     std::vector<Car> result;
     for(const auto & i : vec) {
         if(!i.damage) {
@@ -90,5 +102,33 @@ void Car::deleted_by_vim(std::vector<Car>& vec) {
         }
     }
 }
+
+std::vector<Car> Car::read_car_file(const std::string &filename) {
+    std::ifstream file;
+    file.open(filename);
+    if(!file.is_open()) {
+        throw std::runtime_error("FILE NOT FOUND\n");
+    }
+    std::string brand_, model_, color_, vim_, separator;
+    int price_, range_;
+    bool damage_;
+    std::vector<Car> vec;
+    while(!file.eof()) {
+        std::getline(file, brand_);
+        std::getline(file, model_);
+        file >> price_; file.get();
+        file >> range_; file.get();
+        std::getline(file, color_);
+        std::getline(file, vim_);
+        file >> damage_; file.get();
+        std::getline(file, separator);
+        vec.emplace_back(brand_, model_, price_, range_, color_, vim_, damage_);
+    }
+    return vec;
+}
+
+
+
+
 
 

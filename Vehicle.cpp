@@ -34,7 +34,7 @@ void Vehicle::set_range(int range_) {
 }
 
 void Vehicle::info() const {
-    std::cout << "BRAND: " << brand << " | PRICE: " << price << " | RANGE: " << range << " | ";
+    std::cout << "BRAND: " << brand << " | PRICE: " << price << " | RANGE: " << range;
 }
 
 std::ostream& operator<<(std::ostream& out, const Vehicle& vehicle) {
@@ -58,13 +58,13 @@ void Vehicle::show_data_base(const std::vector<Vehicle>& vec) {
 }
 
 void Vehicle::sort_by_price(std::vector<Vehicle>& vec) {
-    std::sort(vec.begin(), vec.end(), [](const Vehicle& lhs, const Vehicle& rhs){
+    std::sort(vec.begin(), vec.end(), [](const Vehicle& lhs, const Vehicle& rhs) {
         return lhs.price < rhs.price;
     });
 }
 
 void Vehicle::sort_by_range(std::vector<Vehicle>& vec) {
-    std::sort(vec.begin(), vec.end(), [](const Vehicle& lhs, const Vehicle& rhs){
+    std::sort(vec.begin(), vec.end(), [](const Vehicle& lhs, const Vehicle& rhs) {
        return lhs.range < rhs.range;
     });
 }
