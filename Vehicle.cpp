@@ -27,18 +27,25 @@ void Vehicle::set_price(int price_) {
 }
 
 void Vehicle::set_range(int range_) {
-    if(range < 0) {
+    if(range_ < 0) {
         throw std::runtime_error("RANGE VALUE IS INCORRECT");
     }
     this->range = range_;
 }
 
+Vehicle::Vehicle(const std::string& brand, const int price, const int range) {
+    set_brand(brand);
+    set_price(price);
+    set_range(range);
+}
+
 void Vehicle::info() const {
-    std::cout << "BRAND: " << brand << " | PRICE: " << price << " | RANGE: " << range;
+    std::cout << "BRAND: " << get_brand() << " | PRICE: " << get_price() << " | RANGE: " << get_range();
 }
 
 std::ostream& operator<<(std::ostream& out, const Vehicle& vehicle) {
-    return out << "BRAND: " << vehicle.brand << " | PRICE: " << vehicle.price << " | RANGE: " << vehicle.range << '\n';
+    return out << "BRAND: " << vehicle.get_brand() << " | PRICE: " << vehicle.get_price() << " | RANGE: "
+    << vehicle.get_range() << '\n';
 }
 
 std::istream& operator>>(std::istream& in, Vehicle& vehicle) {
@@ -57,14 +64,3 @@ void Vehicle::show_data_base(const std::vector<Vehicle>& vec) {
     }
 }
 
-void Vehicle::sort_by_price(std::vector<Vehicle>& vec) {
-    std::sort(vec.begin(), vec.end(), [](const Vehicle& lhs, const Vehicle& rhs) {
-        return lhs.price < rhs.price;
-    });
-}
-
-void Vehicle::sort_by_range(std::vector<Vehicle>& vec) {
-    std::sort(vec.begin(), vec.end(), [](const Vehicle& lhs, const Vehicle& rhs) {
-       return lhs.range < rhs.range;
-    });
-}
