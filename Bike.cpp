@@ -4,7 +4,7 @@ int Bike::get_gears() const {
     return this->gears;
 }
 
-int Bike::get_weight() const {
+double Bike::get_weight() const {
     return this->weight;
 }
 
@@ -13,13 +13,13 @@ double Bike::get_frame_size() const {
 }
 
 void Bike::set_gears(int gears_) {
-    if(gears_ < 0 || gears_ > 20) {
+    if(gears_ < 0 || gears_ > 30) {
         throw std::runtime_error("GEARS VALUE IS INCORRECT\n");
     }
     this->gears = gears_;
 }
 
-void Bike::set_weight(int weight_) {
+void Bike::set_weight(double weight_) {
     if(weight_ < 0 || weight_ > 50) {
         throw std::runtime_error("WEIGHT VALUE IS INCORRECT\n");
     }
@@ -27,22 +27,23 @@ void Bike::set_weight(int weight_) {
 }
 
 void Bike::set_frame_size(double frame_size_) {
-    if(frame_size_ < 0 || frame_size_ > 30) {
+    if(frame_size_ < 0 || frame_size_ > 50) {
         throw std::runtime_error("FRAME SIZE VALUE IS INCORRECT\n");
     }
     this->frame_size = frame_size_;
 }
 
-Bike::Bike(const std::string &brand, const int price, const int range, const int gears, const int weight,
-           const double frame_size) : Vehicle(brand, price, range) {
+Bike::Bike(const std::string &brand, int price, int range, int gears, double weight,
+           double frame_size) : Vehicle(brand, price, range) {
     set_gears(gears);
     set_weight(weight);
     set_frame_size(frame_size);
 }
 
+
 void Bike::info() const {
     Vehicle::info();
-    std::cout << "GEARS: " << gears << " | WEIGHT: " << weight << " | FRAME SIZE: " << frame_size << '\n';
+    std::cout << " | GEARS: " << get_gears() << " | WEIGHT: " << get_weight() << " | FRAME SIZE: " << get_frame_size() << '\n';
 }
 
 std::ostream& operator<<(std::ostream& out, const Bike& bike) {
@@ -51,19 +52,75 @@ std::ostream& operator<<(std::ostream& out, const Bike& bike) {
     << '\n';
 }
 
+void Bike::show_bikes_data_base(const std::vector<Bike>& vec) {
+    for(const auto & i : vec) {
+        std::cout << i;
+    }
+}
 
-/*std::istream &operator>>(std::istream &in, Bike &bike) {
+void Bike::sort_by_price(std::vector<Bike> &vec) {
+    std::sort(vec.begin(), vec.end(), [](const Bike& lhs, const Bike& rhs){
+        return lhs.get_price() < rhs.get_price();
+    });
+}
+
+void Bike::sort_by_range(std::vector<Bike> &vec) {
+    std::sort(vec.begin(), vec.end(), [](const Bike& lhs, const Bike& rhs){
+        return lhs.get_range() < rhs.get_range();
+    });
+}
+
+void Bike::add_bike(std::vector<Bike> &vec) {
+    std::string brand_;
+    int price_, range_, gears_;
+    double weight_, frame_size_;
     std::cout << "TYPE BRAND: ";
-    std::getline(in, bike.brand);
+    std::getline(std::cin, brand_);
     std::cout << "TYPE PRICE: ";
-    in >> bike.price; in.get();
+    std::cin >> price_; std::cin.get();
     std::cout << "TYPE RANGE: ";
-    in >> bike.range; in.get();
+    std::cin >> range_; std::cin.get();
     std::cout << "TYPE GEARS: ";
-    in >> bike.gears; in.get();
+    std::cin >> gears_; std::cin.get();
     std::cout << "TYPE WEIGHT: ";
-    in >> bike.weight; in.get();
+    std::cin >> weight_; std::cin.get();
     std::cout << "TYPE FRAME SIZE: ";
-    in >> bike.frame_size; in.get();
-    return in;
-}*/
+    std::cin >> frame_size_; std::cin.get();
+    vec.emplace_back(Bike{brand_, price_, range_, gears_, weight_, frame_size_});
+}
+
+std::vector<Bike> Bike::read_bikes_file(const std::string &filename) {
+    std::ifstream file;
+    file.open(filename);
+    if(!file.is_open()) {
+        throw std::runtime_error("FILE NOT FOUND!\n");
+    }
+    std::string brand_, separator;
+    int price_, range_, gears_;
+    double weight_, frame_size_;
+    std::vector<Bike> result;
+    while(!file.eof()) {
+        std::getline(file, brand_);
+        file >> price_; file.get();
+        file >> range_; file.get();
+        file >> gears_; file.get();
+        file >> weight_; file.get();
+        file >> frame_size_; file.get();
+        std::getline(file, separator);
+        result.emplace_back(Bike{brand_, price_, range_, gears_, weight_, frame_size_});
+    }
+    return result;
+}
+
+void Bike::save_bikes(const std::vector<Bike> &vec, const std::string &filename) {
+    std::ofstream file;
+    file.open(filename, std::ios::app);
+    if(!file.is_open()) {
+        throw std::runtime_error("ERROR!\n");
+    }
+    for(const auto & i : vec) {
+        file << i.get_brand() << '\n' << i.get_price() << '\n' << i.get_range() << '\n' << i.get_gears() << '\n'
+        << i.get_weight() << '\n' << i.get_frame_size() << '\n' << "=====================\n";
+    }
+    std::cout << "Saved successfully :)!" << '\n' << "You saved your data base in: " << filename << '\n';
+}

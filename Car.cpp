@@ -46,7 +46,7 @@ void Car::set_damage(const bool &damage_) {
     }
 }
 
-Car::Car(const std::string& brand, const std::string& model, const int price, const int range, const std::string& color,
+Car::Car(const std::string& brand, const std::string& model, int price, int range, const std::string& color,
          const std::string& vin, bool& damage) : Vehicle(brand, price, range) {
     set_model(model);
     set_color(color);
@@ -66,24 +66,6 @@ std::ostream &operator<<(std::ostream &out, const Car& car) {
     << " | RANGE: "<< car.get_range() << " | COLOR: " << car.get_color() << " | VIM: " << car.get_vin() << " | DAMAGE: "
     << std::boolalpha << car.get_damage()<< '\n';
 }
-
-/*std::istream &operator>>(std::istream &in, Car &car) {
-    std::cout << "TYPE BRAND: ";
-    in >> car.brand; in.get();
-    std::cout << "TYPE MODEL: ";
-    in >> car.model; in.get();
-    std::cout << "TYPE PRICE: ";
-    in >> car.price; in.get();
-    std::cout << "TYPE RANGE: ";
-    in >> car.range; in.get();
-    std::cout << "TYPE COLOR: ";
-    in >> car.color; in.get();
-    std::cout << "TYPE VIM: ";
-    in >> car.vin; in.get();
-    std::cout << "TYPE DAMAGE (0/1): ";
-    in >> car.damage; in.get();
-    return in;
-}*/
 
 void Car::show_cars_data_base(const std::vector<Car>& vec) {
     for(const auto & i : vec) {
@@ -134,7 +116,28 @@ void Car::deleted_by_vin(std::vector<Car>& vec) {
     }
 }
 
-std::vector<Car> Car::read_car_file(const std::string &filename) {
+void Car::add_car(std::vector<Car>& vec) {
+    std::string brand_, model_, color_, vin_;
+    int price_, range_;
+    bool damage_;
+    std::cout << "TYPE BRAND: ";
+    std::getline(std::cin, brand_);
+    std::cout << "TYPE MODEL: ";
+    std::getline(std::cin, model_);
+    std::cout << "TYPE PRICE: ";
+    std::cin >> price_; std::cin.get();
+    std::cout << "TYPE RANGE: ";
+    std::cin >> range_; std::cin.get();
+    std::cout << "TYPE COLOR: ";
+    std::getline(std::cin, color_);
+    std::cout << "TYPE VIM: ";
+    std::getline(std::cin, vin_);
+    std::cout << "TYPE DAMAGE (0/1): ";
+    std::cin >> damage_; std::cin.get();
+    vec.emplace_back(Car{brand_, model_, price_, range_, color_, vin_,damage_});
+}
+
+std::vector<Car> Car::read_cars_file(const std::string &filename) {
     std::ifstream file;
     file.open(filename);
     if(!file.is_open()) {
@@ -153,7 +156,7 @@ std::vector<Car> Car::read_car_file(const std::string &filename) {
         std::getline(file, vim_);
         file >> damage_; file.get();
         std::getline(file, separator);
-        vec.emplace_back(brand_, model_, price_, range_, color_, vim_, damage_);
+        vec.emplace_back(Car{brand_, model_, price_, range_, color_, vim_, damage_});
     }
     return vec;
 }
@@ -170,6 +173,3 @@ void Car::save_file(const std::vector<Car> &vec, const std::string &filename) {
     }
     std::cout << "Saved successfully :)!" << '\n' << "You saved your data base in: " << filename << '\n';
 }
-
-
-

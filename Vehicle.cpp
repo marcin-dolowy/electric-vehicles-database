@@ -43,6 +43,12 @@ void Vehicle::info() const {
     std::cout << "BRAND: " << get_brand() << " | PRICE: " << get_price() << " | RANGE: " << get_range();
 }
 
+void Vehicle::show_data_base(const std::vector<Vehicle>& vec) {
+    for(const auto & i : vec) {
+        std::cout << i;
+    }
+}
+
 std::ostream& operator<<(std::ostream& out, const Vehicle& vehicle) {
     return out << "BRAND: " << vehicle.get_brand() << " | PRICE: " << vehicle.get_price() << " | RANGE: "
     << vehicle.get_range() << '\n';
@@ -58,9 +64,4 @@ std::istream& operator>>(std::istream& in, Vehicle& vehicle) {
     return in;
 }
 
-void Vehicle::show_data_base(const std::vector<Vehicle>& vec) {
-    for(const auto & i : vec) {
-        std::cout << i;
-    }
-}
 
