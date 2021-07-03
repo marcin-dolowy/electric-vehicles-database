@@ -54,16 +54,15 @@ Car::Car(const std::string& brand, const std::string& model, int price, int rang
     set_damage(damage);
 }
 
-
 void Car::info() const {
     std::cout << "BRAND: " << get_brand() << " | MODEL: " << model << " | PRICE: " << get_price() << " | RANGE: "
-    << get_range()<< " | COLOR: " << get_color() << " | VIM: " << get_vin() << " | DAMAGE: " << std::boolalpha
+    << get_range()<< " | COLOR: " << get_color() << " | VIN: " << get_vin() << " | DAMAGE: " << std::boolalpha
     << get_damage() << '\n';
 }
 
 std::ostream &operator<<(std::ostream &out, const Car& car) {
     return out << "BRAND: " << car.get_brand() << " | MODEL: " << car.get_model() << " | PRICE: " << car.get_price()
-    << " | RANGE: "<< car.get_range() << " | COLOR: " << car.get_color() << " | VIM: " << car.get_vin() << " | DAMAGE: "
+    << " | RANGE: "<< car.get_range() << " | COLOR: " << car.get_color() << " | VIN: " << car.get_vin() << " | DAMAGE: "
     << std::boolalpha << car.get_damage()<< '\n';
 }
 
@@ -121,7 +120,7 @@ void Car::add_car(std::vector<Car>& vec) {
     int price_, range_;
     bool damage_;
     std::cout << "TYPE BRAND: ";
-    std::getline(std::cin, brand_);
+    std::cin >> brand_; std::cin.get();
     std::cout << "TYPE MODEL: ";
     std::getline(std::cin, model_);
     std::cout << "TYPE PRICE: ";
@@ -161,7 +160,7 @@ std::vector<Car> Car::read_cars_file(const std::string &filename) {
     return vec;
 }
 
-void Car::save_file(const std::vector<Car> &vec, const std::string &filename) {
+void Car::save_cars(const std::vector<Car> &vec, const std::string &filename) {
     std::ofstream file;
     file.open(filename, std::ios::app);
     if(!file.is_open()) {
@@ -171,5 +170,5 @@ void Car::save_file(const std::vector<Car> &vec, const std::string &filename) {
         file << i.get_brand() << '\n' << i.get_model() << '\n' << i.get_price() << '\n' << i.get_range() << '\n'
         << i.get_color() << '\n' << i.get_vin() << '\n' << i.get_damage() << '\n' << "=====================\n";
     }
-    std::cout << "Saved successfully :)!" << '\n' << "You saved your data base in: " << filename << '\n';
+    std::cout << "Saved successfully :)!" << '\n' << "You saved your database in: " << filename << '\n';
 }

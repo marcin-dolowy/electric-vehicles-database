@@ -53,8 +53,8 @@ std::ostream& operator<<(std::ostream& out, const Bike& bike) {
 }
 
 void Bike::show_bikes_data_base(const std::vector<Bike>& vec) {
-    for(const auto & i : vec) {
-        std::cout << i;
+    for(int i = 0; i < vec.size(); i++) {
+        std::cout << i + 1 << ". " << vec[i];
     }
 }
 
@@ -88,6 +88,13 @@ void Bike::add_bike(std::vector<Bike> &vec) {
     std::cin >> frame_size_; std::cin.get();
     vec.emplace_back(Bike{brand_, price_, range_, gears_, weight_, frame_size_});
 }
+
+void Bike::delete_bike(std::vector<Bike>& vec) {
+    int choice;
+    std::cout << "SELECT A NUMBER OF BIKE YOU WANT TO DELETE: ";
+    std::cin >> choice;
+    vec.erase(vec.begin() + choice - 1);
+    }
 
 std::vector<Bike> Bike::read_bikes_file(const std::string &filename) {
     std::ifstream file;

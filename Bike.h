@@ -25,6 +25,7 @@ public:
     void info() const override;
     static void show_bikes_data_base(const std::vector<Bike>& vec);
     static void add_bike(std::vector<Bike>& vec);
+    static void delete_bike(std::vector<Bike>& vec);
     static void sort_by_price(std::vector<Bike>& vec);
     static void sort_by_range(std::vector<Bike>& vec);
     friend std::ostream& operator<<(std::ostream& out, const Bike& bike);
