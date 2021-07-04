@@ -23,12 +23,12 @@ public:
     void set_frame_size(double frame_size);
 
     void info() const override;
+    friend std::ostream& operator<<(std::ostream& out, const Bike& bike);
     static void show_bikes_data_base(const std::vector<Bike>& vec);
-    static void add_bike(std::vector<Bike>& vec);
-    static void delete_bike(std::vector<Bike>& vec);
     static void sort_by_price(std::vector<Bike>& vec);
     static void sort_by_range(std::vector<Bike>& vec);
-    friend std::ostream& operator<<(std::ostream& out, const Bike& bike);
+    static void add_bike(std::vector<Bike>& vec);
+    static void delete_bike(std::vector<Bike>& vec);
     static std::vector<Bike> read_bikes_file(const std::string& filename);
     static void save_bikes(const std::vector<Bike>& vec, const std::string& filename);
 };

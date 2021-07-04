@@ -12,7 +12,7 @@ int Vehicle::get_range() const {
     return this->range;
 }
 
-void Vehicle::set_brand(const std::string &brand_) {
+void Vehicle::set_brand(const std::string& brand_) {
     if(brand_.length() < 0 || brand_.length() > 20) {
         throw std::runtime_error("WRONG NAME OF BRAND\n");
     }
@@ -33,7 +33,7 @@ void Vehicle::set_range(int range_) {
     this->range = range_;
 }
 
-Vehicle::Vehicle(const std::string& brand, const int price, const int range) {
+Vehicle::Vehicle(const std::string& brand, int price, int range) {
     set_brand(brand);
     set_price(price);
     set_range(range);

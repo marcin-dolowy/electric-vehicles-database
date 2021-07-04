@@ -16,28 +16,28 @@ bool Car::get_damage() const {
     return this->damage;
 }
 
-void Car::set_model(const std::string &model_) {
+void Car::set_model(const std::string& model_) {
     if(model_.length() < 0 || model_.length() > 20) {
         throw std::runtime_error("WRONG NAME OF MODEL\n");
     }
     this->model = model_;
 }
 
-void Car::set_color(const std::string &color_) {
+void Car::set_color(const std::string& color_) {
     if(color_.length() < 0 || color_.length() > 20) {
         throw std::runtime_error("WRONG NAME OF COLOR\n");
     }
     this->color = color_;
 }
 
-void Car::set_vin(const std::string &vim_) {
+void Car::set_vin(const std::string& vim_) {
     if(vim_.length() != 17) {
         throw std::runtime_error("VIM NUMBER IS INCORRECT\n");
     }
     this->vin = vim_;
 }
 
-void Car::set_damage(const bool &damage_) {
+void Car::set_damage(const bool& damage_) {
     if(damage_ || !damage_) {
         this->damage = damage_;
     }
@@ -55,7 +55,7 @@ Car::Car(const std::string& brand, const std::string& model, int price, int rang
 }
 
 void Car::info() const {
-    std::cout << "BRAND: " << get_brand() << " | MODEL: " << model << " | PRICE: " << get_price() << " | RANGE: "
+    std::cout << "BRAND: " << get_brand() << " | MODEL: " << get_model() << " | PRICE: " << get_price() << " | RANGE: "
     << get_range()<< " | COLOR: " << get_color() << " | VIN: " << get_vin() << " | DAMAGE: " << std::boolalpha
     << get_damage() << '\n';
 }
@@ -84,37 +84,6 @@ void Car::sort_by_range(std::vector<Car> &vec) {
     });
 }
 
-std::vector<Car> Car::cars_with_damage(const std::vector<Car>& vec) {
-    std::vector<Car> result;
-    for(auto & i : vec) {
-        if(i.get_damage()) {
-            result.emplace_back(i);
-        }
-    }
-    return result;
-}
-
-std::vector<Car> Car::cars_without_damage(const std::vector<Car>& vec) {
-    std::vector<Car> result;
-    for(const auto & i : vec) {
-        if(!i.get_damage()) {
-            result.emplace_back(i);
-        }
-    }
-    return result;
-}
-
-void Car::deleted_by_vin(std::vector<Car>& vec) {
-    std::string vim_;
-    std::cout << "TYPE VIM: ";
-    std::cin >> vim_;
-    for(int i = 0; i < vec.size(); ++i) {
-        if(vec[i].get_vin() == vim_) {
-            vec.erase(vec.begin() + i);
-        }
-    }
-}
-
 void Car::add_car(std::vector<Car>& vec) {
     std::string brand_, model_, color_, vin_;
     int price_, range_;
@@ -136,7 +105,38 @@ void Car::add_car(std::vector<Car>& vec) {
     vec.emplace_back(Car{brand_, model_, price_, range_, color_, vin_,damage_});
 }
 
-std::vector<Car> Car::read_cars_file(const std::string &filename) {
+void Car::deleted_by_vin(std::vector<Car>& vec) {
+    std::string vim_;
+    std::cout << "TYPE VIM: ";
+    std::cin >> vim_;
+    for(int i = 0; i < vec.size(); ++i) {
+        if(vec[i].get_vin() == vim_) {
+            vec.erase(vec.begin() + i);
+        }
+    }
+}
+
+std::vector<Car> Car::cars_with_damage(const std::vector<Car>& vec) {
+    std::vector<Car> result;
+    for(auto & i : vec) {
+        if(i.get_damage()) {
+            result.emplace_back(i);
+        }
+    }
+    return result;
+}
+
+std::vector<Car> Car::cars_without_damage(const std::vector<Car>& vec) {
+    std::vector<Car> result;
+    for(const auto & i : vec) {
+        if(!i.get_damage()) {
+            result.emplace_back(i);
+        }
+    }
+    return result;
+}
+
+std::vector<Car> Car::read_cars_file(const std::string& filename) {
     std::ifstream file;
     file.open(filename);
     if(!file.is_open()) {
@@ -160,7 +160,7 @@ std::vector<Car> Car::read_cars_file(const std::string &filename) {
     return vec;
 }
 
-void Car::save_cars(const std::vector<Car> &vec, const std::string &filename) {
+void Car::save_cars(const std::vector<Car>& vec, const std::string& filename) {
     std::ofstream file;
     file.open(filename, std::ios::app);
     if(!file.is_open()) {

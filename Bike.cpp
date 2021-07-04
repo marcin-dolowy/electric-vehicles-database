@@ -33,13 +33,12 @@ void Bike::set_frame_size(double frame_size_) {
     this->frame_size = frame_size_;
 }
 
-Bike::Bike(const std::string &brand, int price, int range, int gears, double weight,
+Bike::Bike(const std::string& brand, int price, int range, int gears, double weight,
            double frame_size) : Vehicle(brand, price, range) {
     set_gears(gears);
     set_weight(weight);
     set_frame_size(frame_size);
 }
-
 
 void Bike::info() const {
     Vehicle::info();
@@ -58,24 +57,24 @@ void Bike::show_bikes_data_base(const std::vector<Bike>& vec) {
     }
 }
 
-void Bike::sort_by_price(std::vector<Bike> &vec) {
+void Bike::sort_by_price(std::vector<Bike>& vec) {
     std::sort(vec.begin(), vec.end(), [](const Bike& lhs, const Bike& rhs){
         return lhs.get_price() < rhs.get_price();
     });
 }
 
-void Bike::sort_by_range(std::vector<Bike> &vec) {
+void Bike::sort_by_range(std::vector<Bike>& vec) {
     std::sort(vec.begin(), vec.end(), [](const Bike& lhs, const Bike& rhs){
         return lhs.get_range() < rhs.get_range();
     });
 }
 
-void Bike::add_bike(std::vector<Bike> &vec) {
+void Bike::add_bike(std::vector<Bike>& vec) {
     std::string brand_;
     int price_, range_, gears_;
     double weight_, frame_size_;
     std::cout << "TYPE BRAND: ";
-    std::getline(std::cin, brand_);
+    std::cin >> brand_; std::cin.get();
     std::cout << "TYPE PRICE: ";
     std::cin >> price_; std::cin.get();
     std::cout << "TYPE RANGE: ";
@@ -96,7 +95,7 @@ void Bike::delete_bike(std::vector<Bike>& vec) {
     vec.erase(vec.begin() + choice - 1);
     }
 
-std::vector<Bike> Bike::read_bikes_file(const std::string &filename) {
+std::vector<Bike> Bike::read_bikes_file(const std::string& filename) {
     std::ifstream file;
     file.open(filename);
     if(!file.is_open()) {
@@ -119,7 +118,7 @@ std::vector<Bike> Bike::read_bikes_file(const std::string &filename) {
     return result;
 }
 
-void Bike::save_bikes(const std::vector<Bike> &vec, const std::string &filename) {
+void Bike::save_bikes(const std::vector<Bike>& vec, const std::string& filename) {
     std::ofstream file;
     file.open(filename, std::ios::app);
     if(!file.is_open()) {
