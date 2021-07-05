@@ -63,5 +63,3 @@ std::istream& operator>>(std::istream& in, Vehicle& vehicle) {
     in >> vehicle.range; in.get();
     return in;
 }
-
-

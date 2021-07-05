@@ -22,8 +22,15 @@ public:
     void set_price(int price_);
     void set_range(int range_);
 
+    // wirtualna metoda info wypisujaca obiekt klasy Vehicle
     virtual void info() const;
-    friend std::ostream& operator<<(std::ostream& out, const Vehicle& vehicle);
-    friend std::istream& operator>>(std::istream& in, Vehicle& vehicle);
+
+    // metoda wypisujaca vector obietkow klasy Vehicle
     static void show_data_base(const std::vector<Vehicle>& vec);
+
+    // opearator wyjscia wypisujacy obiekt klasy
+    friend std::ostream& operator<<(std::ostream& out, const Vehicle& vehicle);
+
+    // operator wejscia inicjalizujacy obiekt klasy zmiennymi przekazanymi przez usera
+    friend std::istream& operator>>(std::istream& in, Vehicle& vehicle);
 };
