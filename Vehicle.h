@@ -8,7 +8,7 @@ private:
     int price;
     int range;
 public:
-    Vehicle(const std::string& brand, int price, int range);
+    Vehicle(const std::string& brand, const int price, const int range);
     Vehicle() : brand(" "), price(0), range(0) {};
     ~Vehicle() = default;
 

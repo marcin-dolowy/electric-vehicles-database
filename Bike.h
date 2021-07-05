@@ -8,7 +8,8 @@ private:
     double weight;
     double frame_size;
 public:
-    Bike(const std::string &brand, int price, int range, int gears, double weight, double frame_size);
+    Bike(const std::string& brand, const int price, const int range, const int gears, const double weight,
+         const double frame_size);
     Bike() = default;
     ~Bike() = default;
 

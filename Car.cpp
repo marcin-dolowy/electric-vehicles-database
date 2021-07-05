@@ -46,7 +46,7 @@ void Car::set_damage(const bool& damage_) {
     }
 }
 
-Car::Car(const std::string& brand, const std::string& model, int price, int range, const std::string& color,
+Car::Car(const std::string& brand, const std::string& model, const int price, const int range, const std::string& color,
          const std::string& vin, bool& damage) : Vehicle(brand, price, range) {
     set_model(model);
     set_color(color);
@@ -60,7 +60,7 @@ void Car::info() const {
     << get_damage() << '\n';
 }
 
-std::ostream &operator<<(std::ostream &out, const Car& car) {
+std::ostream &operator<<(std::ostream& out, const Car& car) {
     return out << "BRAND: " << car.get_brand() << " | MODEL: " << car.get_model() << " | PRICE: " << car.get_price()
     << " | RANGE: "<< car.get_range() << " | COLOR: " << car.get_color() << " | VIN: " << car.get_vin() << " | DAMAGE: "
     << std::boolalpha << car.get_damage()<< '\n';
@@ -72,13 +72,13 @@ void Car::show_cars_data_base(const std::vector<Car>& vec) {
     }
 }
 
-void Car::sort_by_price(std::vector<Car> &vec) {
+void Car::sort_by_price(std::vector<Car>& vec) {
     std::sort(vec.begin(), vec.end(), [](const Car& lhs, const Car& rhs){
         return lhs.get_price() < rhs.get_price();
     });
 }
 
-void Car::sort_by_range(std::vector<Car> &vec) {
+void Car::sort_by_range(std::vector<Car>& vec) {
     std::sort(vec.begin(), vec.end(), [](const Car& lhs, const Car& rhs){
         return lhs.get_range() < rhs.get_range();
     });
@@ -98,7 +98,7 @@ void Car::add_car(std::vector<Car>& vec) {
     std::cin >> range_; std::cin.get();
     std::cout << "TYPE COLOR: ";
     std::getline(std::cin, color_);
-    std::cout << "TYPE VIM: ";
+    std::cout << "TYPE VIN: ";
     std::getline(std::cin, vin_);
     std::cout << "TYPE DAMAGE (0/1): ";
     std::cin >> damage_; std::cin.get();
@@ -107,7 +107,7 @@ void Car::add_car(std::vector<Car>& vec) {
 
 void Car::deleted_by_vin(std::vector<Car>& vec) {
     std::string vim_;
-    std::cout << "TYPE VIM: ";
+    std::cout << "TYPE VIN: ";
     std::cin >> vim_;
     for(int i = 0; i < vec.size(); ++i) {
         if(vec[i].get_vin() == vim_) {

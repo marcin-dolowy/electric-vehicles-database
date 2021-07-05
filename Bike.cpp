@@ -33,8 +33,8 @@ void Bike::set_frame_size(double frame_size_) {
     this->frame_size = frame_size_;
 }
 
-Bike::Bike(const std::string& brand, int price, int range, int gears, double weight,
-           double frame_size) : Vehicle(brand, price, range) {
+Bike::Bike(const std::string& brand, const int price, const int range, const int gears, const double weight,
+           const double frame_size) : Vehicle(brand, price, range) {
     set_gears(gears);
     set_weight(weight);
     set_frame_size(frame_size);

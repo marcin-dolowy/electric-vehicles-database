@@ -33,7 +33,7 @@ void Vehicle::set_range(int range_) {
     this->range = range_;
 }
 
-Vehicle::Vehicle(const std::string& brand, int price, int range) {
+Vehicle::Vehicle(const std::string& brand, const int price, const int range) {
     set_brand(brand);
     set_price(price);
     set_range(range);
