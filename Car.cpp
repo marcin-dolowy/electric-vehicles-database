@@ -106,11 +106,11 @@ void Car::add_car(std::vector<Car>& vec) {
 }
 
 void Car::deleted_by_vin(std::vector<Car>& vec) {
-    std::string vim_;
+    std::string vin_;
     std::cout << "TYPE VIN: ";
-    std::cin >> vim_;
+    std::cin >> vin_;
     for(int i = 0; i < vec.size(); ++i) {
-        if(vec[i].get_vin() == vim_) {
+        if(vec[i].get_vin() == vin_) {
             vec.erase(vec.begin() + i);
         }
     }
