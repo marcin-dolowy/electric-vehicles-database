@@ -65,4 +65,3 @@ std::istream& operator>>(std::istream& in, Vehicle& vehicle) {
 }
 
 
-std::cout << "hello firend\n"
